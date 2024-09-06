@@ -7,10 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-DiscordSettings BotConfig = builder.Configuration.GetSection("BotSettings").Get<DiscordSettings>() ??
-                            throw new InvalidOperationException("Couldnt find bot settings.");
+builder.Services
+    .AddOptions<DiscordSettings>()
+    .BindConfiguration(DiscordSettings.SectionName);
 
-builder.Services.AddHostedService<Bot>(b => new Bot( /* need to put logger here */, BotConfig));
+builder.Services.AddHostedService<Bot>();
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();

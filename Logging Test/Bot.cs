@@ -1,8 +1,10 @@
-﻿namespace Logging_Test;
+﻿using Microsoft.Extensions.Options;
+
+namespace Logging_Test;
 
 public class Bot : BackgroundService{
 
-    public Bot(ILogger<Bot> logger, DiscordSettings config) {
+    public Bot(ILogger<Bot> logger, IOptions<DiscordSettings> config) {
         
     }
     
@@ -15,4 +17,6 @@ public class Bot : BackgroundService{
 public class DiscordSettings {
     public int setting1 { get; set; }
     public int settign2 { get; set; }
+    
+    public const string SectionName = "BotSettings";
 }
